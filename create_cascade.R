@@ -35,7 +35,8 @@ fn <- function(data, plot_label = ' ',
                             legend.position = 'none') + 
     xlab(plot_label) + ylab('Study population') + 
     scale_fill_manual(values = csc) + 
-    geom_text(data = data[data$in_Q==1,], aes(y = 40, x = level, label = paste0('N = ',N)), color = 'white')
+    geom_text(data = data[data$in_Q==1,], aes(y = 0.1*(data[data$level==1,]$N),
+                                              x = level, label = paste0('N = ',N)), color = 'white')
   
   if(plot_title!=' '){
     p1 <- p1 + ggtitle(plot_title)
