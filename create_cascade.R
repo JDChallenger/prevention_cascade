@@ -6,7 +6,8 @@ library(scales)
 source('synthetic_data.R')
 df
 
-fn <- function(data, plot_label = ' ', y_axis = 'both',
+fn <- function(data, plot_label = ' ', 
+               plot_title = ' ',y_axis = 'both',
                color_scheme = -1, second_color = 'grey57',
                order_reasons = 'auto'){
   
@@ -35,6 +36,10 @@ fn <- function(data, plot_label = ' ', y_axis = 'both',
     xlab(plot_label) + ylab('Study population') + 
     scale_fill_manual(values = csc) + 
     geom_text(data = data[data$in_Q==1,], aes(y = 40, x = level, label = paste0('N = ',N)), color = 'white')
+  
+  if(plot_title!=' '){
+    p1 <- p1 + ggtitle(plot_title)
+  }
   #return(p1)
   
   lu <- unique(data$level)
@@ -71,9 +76,10 @@ fn <- function(data, plot_label = ' ', y_axis = 'both',
       txt_loc <- (x1 + x2)/2
       txt_loc_y <- base + 1.1*aux[aux$order==j,]$N 
       
-      N_label = paste0('N = ',aux[aux$order==j,]$N)
+      N_label = as.character(aux[aux$order==j,]$N)#paste0('N = ',aux[aux$order==j,]$N)
       N_pos_x <- txt_loc <- (x1 + x2)/2
-      N_pos_y <- base + 0.2*aux[aux$order==j,]$N #+ 25 # may need modifying
+      #N_pos_y <- base + 0.2*aux[aux$order==j,]$N #+ 25 # may need modifying
+      N_pos_y <- base + 0.25*min(aux$N)
       
       dx <- rbind(dx, data.frame('sx1' = x1, 'sx2' = x2, 'sy1' = y1, "sy2" = y2,
                                  'text' = txt, 'text_loc' = txt_loc, 'text_loc_y' = txt_loc_y,
@@ -83,14 +89,16 @@ fn <- function(data, plot_label = ' ', y_axis = 'both',
     
   }
   
-  size1 <- 3.3
+  size1 <- 3.4
   size2 <- 4.5
   
   p2 <- p1 + geom_rect(data = dx, aes(xmin = sx1, xmax = sx2, ymin = sy1, ymax = sy2),
-                       fill = second_color[1]) + 
+                       fill = second_color[1]) + #, color = 'darkred' 
     geom_text(angle = 90, data = dx, aes(x = text_loc, y = text_loc_y, label = text),
-              vjust = 0.5, size = size1, color = 'grey19') + 
-    geom_text(color = 'grey77', data = dx, aes(x = N_pos_x, y = N_pos_y, label = N_lab), size = size1)
+              vjust = 0.5, hjust = 0, size = size1, color = 'grey19') + 
+    geom_text(color = 'grey87', data = dx, 
+        aes(x = N_pos_x, y = N_pos_y, label = N_lab), 
+        vjust = 0, size = size1)
   
   if(y_axis=='both'){
     p2 <- p2 + scale_y_continuous(sec.axis =
@@ -120,9 +128,9 @@ fn(data = df, plot_label = 'Bray', y_axis = 'N')
 fn(data = df, plot_label = 'Bray', y_axis = 'both')
 fn(data = df, plot_label = 'Bray', y_axis = 'PC')
 
-fn(data = df, plot_label = 'Bray', y_axis = 'both',
+fn(data = df, plot_label = 'Title here', y_axis = 'both',
    color_scheme = c('dodgerblue3','slateblue','skyblue2','turquoise'),
-   second_color = 'grey39')
+   second_color = 'grey39', order_reasons = 'ascend', plot_title = 'Or title here')
 
 fn(data = df, plot_label = 'Bray', y_axis = 'N')
 fn(data = df, plot_label = 'Bray', y_axis = 'N', order_reasons = 'xyz')
