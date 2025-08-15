@@ -69,11 +69,11 @@ fn <- function(data, plot_label = ' ', y_axis = 'both',
       
       txt <- aux[aux$order==j,]$reason
       txt_loc <- (x1 + x2)/2
-      txt_loc_y <- base + 0.5*aux[aux$order==j,]$N 
+      txt_loc_y <- base + 1.1*aux[aux$order==j,]$N 
       
       N_label = paste0('N = ',aux[aux$order==j,]$N)
       N_pos_x <- txt_loc <- (x1 + x2)/2
-      N_pos_y <- base + aux[aux$order==j,]$N + 25 # may need modifying
+      N_pos_y <- base + 0.2*aux[aux$order==j,]$N #+ 25 # may need modifying
       
       dx <- rbind(dx, data.frame('sx1' = x1, 'sx2' = x2, 'sy1' = y1, "sy2" = y2,
                                  'text' = txt, 'text_loc' = txt_loc, 'text_loc_y' = txt_loc_y,
@@ -89,8 +89,8 @@ fn <- function(data, plot_label = ' ', y_axis = 'both',
   p2 <- p1 + geom_rect(data = dx, aes(xmin = sx1, xmax = sx2, ymin = sy1, ymax = sy2),
                        fill = second_color[1]) + 
     geom_text(angle = 90, data = dx, aes(x = text_loc, y = text_loc_y, label = text),
-              vjust = 0.5, size = size1, color = 'grey89') + 
-    geom_text(color = 'black', data = dx, aes(x = N_pos_x, y = N_pos_y, label = N_lab), size = size2)
+              vjust = 0.5, size = size1, color = 'grey19') + 
+    geom_text(color = 'grey77', data = dx, aes(x = N_pos_x, y = N_pos_y, label = N_lab), size = size1)
   
   if(y_axis=='both'){
     p2 <- p2 + scale_y_continuous(sec.axis =
