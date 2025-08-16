@@ -19,7 +19,7 @@ source('visualise_cascade_function.R')
 # the data frame to use:
 visualise_cascade(data = df)
 
-# Now we'll go through a list of the other options:
+####### Now we'll go through a list of the other options:
 
 # * plot_label
 # This allows the user to add a label to the plot, 
@@ -123,7 +123,9 @@ visualise_cascade(data = df,
 # the console while the function is running
 visualise_cascade(data = df, verbose = T)
 
-# any of these options can be used togehter, e.g.:
+###### That's the end of the list of options
+
+# any of these options can be used together, e.g.:
 visualise_cascade(data = df, 
                   plot_title = 'Treatment cascade',
                   colour_scheme = c('dodgerblue3','slateblue',
