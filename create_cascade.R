@@ -9,6 +9,8 @@ library(scales)
 source('synthetic_data.R')
 df
 
+# TO DO: Add description of data format to be used here
+
 # The function we'll use to generate the visualise is called
 # 'visualise_cascade() . We load the function from this R script: 
 source('visualise_cascade_function.R')
