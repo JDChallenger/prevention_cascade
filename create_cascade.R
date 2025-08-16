@@ -91,6 +91,18 @@ visualise_cascade(data = df, buffer_x = 1)
 # setting buffer_y=10 adds 10% extra space to the plot
 visualise_cascade(data = df, buffer_y = 70) 
 
+# * label_buffer
+# This determines the gap between the bar for each
+# reason, and the corresponding label
+# As the scale on the y-axis is determined by the
+# number of people in the study, this can be useful to 
+# scale this value, e.g.:
+
+#make the gap 4% of plot size (ignoring extra space introduced by buffer_y)
+#If not specified, the default is 2.5%
+visualise_cascade(data = df, 
+                  label_buffer = 0.04*max(df$N))
+
 # * font_size1, font_size2
 # These arguments change the font sizes for the labels
 # font_size1 is larger, and for the numbers of people 
@@ -103,3 +115,16 @@ visualise_cascade(data = df,
 # if verbose==T (True), then extra info is printed to 
 # the console while the function is running
 visualise_cascade(data = df, verbose = T)
+
+# any of these options can be used togehter, e.g.:
+visualise_cascade(data = df, 
+                  plot_title = 'Treatment cascade',
+                  colour_scheme = c('dodgerblue3','slateblue',
+                                    'skyblue2','turquoise'),
+                  order_reasons = 'descend',
+                  buffer_y = 77)
+#if you wish, you can save the plot.
+#PDF plot is high-resolution, but PNG can be easier to 
+#include in (e.g.) Word/Powerpoint
+ggsave('cascade.pdf', height = 6, width = 7.8)
+ggsave('cascade.png', height = 6, width = 7.8)

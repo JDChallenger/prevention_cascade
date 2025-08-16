@@ -3,6 +3,7 @@ visualise_cascade <- function(data, plot_label = ' ',
                               colour_scheme = -1, second_colour = 'grey57',
                               order_reasons = 'auto',
                               buffer_x = 0, buffer_y = 0,
+                              label_buffer = -1,
                               font_size1= 5.1, font_size2 = 3.4,
                               verbose = F){
   
@@ -28,6 +29,12 @@ visualise_cascade <- function(data, plot_label = ' ',
   data$level <- as.integer(data$level)
   data$N <- as.integer(data$N)
   data$in_Q <- as.integer(data$in_Q)
+  
+  if(label_buffer==-1){
+    label_buffer1 <- 0.025*max(data$N)
+  }else{
+    label_buffer1 <- label_buffer
+  }
   
   #base plot
   p1 <- ggplot() + geom_rect(data = data[data$in_Q==1,], 
@@ -80,7 +87,7 @@ visualise_cascade <- function(data, plot_label = ' ',
       
       txt <- aux[aux$order==j,]$reason
       txt_loc <- (x1 + x2)/2
-      txt_loc_y <- base + 1.1*aux[aux$order==j,]$N 
+      txt_loc_y <- base + label_buffer1 + aux[aux$order==j,]$N 
       
       N_label = paste0('N=',aux[aux$order==j,]$N)#as.character(aux[aux$order==j,]$N)#
       N_pos_x <- txt_loc <- (x1 + x2)/2
