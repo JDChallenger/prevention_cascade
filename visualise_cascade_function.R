@@ -3,7 +3,8 @@ visualise_cascade <- function(data, plot_label = ' ',
                               colour_scheme = -1, second_colour = 'grey57',
                               order_reasons = 'auto',
                               buffer_x = 0, buffer_y = 0,
-                              font_size1= 5.1, font_size2 = 3.4){
+                              font_size1= 5.1, font_size2 = 3.4,
+                              verbose = F){
   
   l <- length(unique(data$level))
   if(length(colour_scheme) != l & length(colour_scheme) > 1){
@@ -15,10 +16,13 @@ visualise_cascade <- function(data, plot_label = ' ',
   if(length(colour_scheme) == l){
     csc <- colour_scheme
   }else{
-    print('No user-defined colour scheme detected')
+    if(verbose==T){
+      print('No user-defined colour scheme detected')
+    }
   }
-  print(csc)
-  #}
+  if(verbose==T){
+    print(csc)
+  }
   
   #check data types are OK
   data$level <- as.integer(data$level)
@@ -39,7 +43,6 @@ visualise_cascade <- function(data, plot_label = ' ',
   if(plot_title!=' '){
     p1 <- p1 + ggtitle(plot_title)
   }
-  #return(p1)
   
   lu <- unique(data$level)
   l <- length(lu)
@@ -60,10 +63,14 @@ visualise_cascade <- function(data, plot_label = ' ',
       aux <- aux[order(-aux$N),]
     }
     aux$order <- seq(1,no)
-    print(aux)
+    if(verbose==T){
+      print(aux)
+    }
     
     base <- data[data$level==lu[i] & data$in_Q==1,]$N
-    print(base)
+    if(verbose==T){
+      print(base)
+    }
     
     for(j in 1:no){
       x1 <- i - 0.5 + (j-1)/no

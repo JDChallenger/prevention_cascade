@@ -96,4 +96,10 @@ visualise_cascade(data = df, buffer_y = 70)
 # font_size1 is larger, and for the numbers of people 
 # remaining in the cascade.
 # By default, font_size1= 5.1, font_size2 = 3.4
-visualise_cascade(data = df, font_size1= 6, font_size2 = 2) 
+visualise_cascade(data = df, 
+                  font_size1= 6, font_size2 = 2) 
+
+# * verbose
+# if verbose==T (True), then extra info is printed to 
+# the console while the function is running
+visualise_cascade(data = df, verbose = T)
