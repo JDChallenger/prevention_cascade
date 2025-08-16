@@ -1,3 +1,6 @@
+#These are the packages we'll need
+#If you don't have these installed, select the
+#'Install Packages' option from the Tools menu
 library(ggplot2)
 library(scales)
 
