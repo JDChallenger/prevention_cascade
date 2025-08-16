@@ -1,10 +1,10 @@
-#These are the packages we'll need
-#If you don't have these installed, select the
-#'Install Packages' option from the Tools menu
+# These are the packages we'll need.
+# If you don't have these installed, select the
+# 'Install Packages' option from the Tools menu
 library(ggplot2)
 library(scales)
 
-#If you don't have data to read in, you 
+# If you don't have data to read in, you 
 # can use the fake data provided
 source('synthetic_data.R')
 df
@@ -19,7 +19,8 @@ source('visualise_cascade_function.R')
 # the data frame to use:
 visualise_cascade(data = df)
 
-#Here is a list of the other options:
+# Now we'll go through a list of the other options:
+
 # * plot_label
 # This allows the user to add a label to the plot, 
 # which is placed below the x-axis.
@@ -53,6 +54,9 @@ visualise_cascade(data = df, y_axis = 'PC')
 # number of levels in the cascade.
 # Otherwise the function will print a warning message,
 # and use the default values
+visualise_cascade(data = df, 
+                  colour_scheme = c('dodgerblue3','slateblue',
+                                    'skyblue2','turquoise'))
 
 # * second_colour
 # This is the colour of the bars,
