@@ -1,4 +1,4 @@
-# prevention_cascade
+# Prevention Cascade
 Visualise an HIV prevention cascade
 
 Note: this repo is currently under construction, and is not yet ready to be used reliably. But any testing would be useful.
