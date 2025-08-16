@@ -6,19 +6,94 @@ library(scales)
 source('synthetic_data.R')
 df
 
+# The function we'll use to generate the visualise is called
+# 'visualise_cascade() . We load the function from this R script: 
 source('visualise_cascade_function.R')
 
-visualise_cascade(data = df, plot_label = 'Bray')
-visualise_cascade(data = df, plot_label = 'Bray', y_axis = 'N')
-visualise_cascade(data = df, plot_label = 'Bray', y_axis = 'both')
-visualise_cascade(data = df, plot_label = 'Bray', y_axis = 'PC')
+# The function has a number of arguments, 
+# which allow the user to customise the plot.
+# The only compulsory one is the specification of 
+# the data frame to use:
+visualise_cascade(data = df)
 
-visualise_cascade(data = df, plot_label = 'Title here', y_axis = 'both',
-   color_scheme = c('dodgerblue3','slateblue','skyblue2','turquoise'),
-   second_color = 'grey39', order_reasons = 'ascend', plot_title = 'Or title here')
+#Here is a list of the other options:
+# * plot_label
+# This allows the user to add a label to the plot, 
+# which is placed below the x-axis.
+# By default, this is empty
+visualise_cascade(data = df, 
+                  plot_label = 'A description of the overall plot')
 
-visualise_cascade(data = df, plot_label = 'Bray', y_axis = 'N')
-visualise_cascade(data = df, plot_label = 'Bray', y_axis = 'N', order_reasons = 'xyz')
-visualise_cascade(data = df, plot_label = 'Bray', y_axis = 'N', order_reasons = 'AZ')
-visualise_cascade(data = df, plot_label = 'Bray', y_axis = 'N', order_reasons = 'ascend')
-visualise_cascade(data = df, plot_label = 'Bray', y_axis = 'N', order_reasons = 'descend')
+# * plot_title
+#Alternatively, you may wish to add a title at the top of the plot
+# By default, this is empty
+visualise_cascade(data = df, 
+                  plot_title = 'Plot title')
+
+# * y_axis
+# For the scale on the y axis, there are three options:
+# (i) The number of people (y_axis = 'N')
+# (ii) The percentage of the study population (y_axis = 'PC')
+# (iii) Both options, with the percentage on a 2nd y axis (y_axis = 'both)
+
+visualise_cascade(data = df, y_axis = 'N')
+visualise_cascade(data = df, y_axis = 'both')
+visualise_cascade(data = df, y_axis = 'PC')
+
+# * colour_scheme
+# By default, we use the default ggplot2 colour scheme.
+# But we can override this, by providing a list of colours.
+# A list of named colours can be found here: https://sape.inf.usi.ch/quick-reference/ggplot2/colour
+# You could also use "#RRGGBB" RGB colour strings, 
+#but we won't show that here.
+# Note: the length of the list needs to match the 
+# number of levels in the cascade.
+# Otherwise the function will print a warning message,
+# and use the default values
+
+# * second_colour
+# This is the colour of the bars,
+# for those not covered by effective treatment.
+# By default, this is set to dark grey.
+# But you could use anything, e.g.: 
+
+visualise_cascade(data = df, 
+   colour_scheme = c('dodgerblue3','slateblue',
+                     'skyblue2','turquoise'),
+   second_colour = 'darkred')
+
+# * order_reasons
+# For each level of the cascade, this argument specifies
+# the order in which the reasons are plotted. 
+# The options are: (i) The order specified by the user in 
+# the dataframe (the default); 
+# (ii) Alphabetical (order_reasons='AZ); 
+# (iii) Ascending (l to r) numerical values (order_reasons = 'ascend'); 
+# (iv) Descending (l to r) numerical values (order_reasons = 'descend'); 
+
+visualise_cascade(data = df, order_reasons = 'AZ')
+visualise_cascade(data = df, order_reasons = 'ascend')
+visualise_cascade(data = df, order_reasons = 'descend')
+
+# * buffer_x
+# Allows the user to add extra space in the x direction
+# This is in units of the number of levels
+# i.e. buffer_x = 1 adds white space of the width of one 'bar'
+# The default is 0
+visualise_cascade(data = df, buffer_x = 1)
+
+# * buffer_y
+# This adds extra white space at the top of the plot
+# This could be useful if some of the labels are 
+# falling off the top of the plot
+# The scale of this matches the number of people in the 
+# cascade. E.g. if level 1 contains 100 people,
+# setting buffer_y=10 adds 10% extra space to the plot
+visualise_cascade(data = df, buffer_y = 70) 
+
+# * font_size1, font_size2
+# These arguments change the font sizes for the labels
+# font_size1 is larger, and for the numbers of people 
+# remaining in the cascade.
+# By default, font_size1= 5.1, font_size2 = 3.4
+visualise_cascade(data = df, font_size1= 6, font_size2 = 2) 
