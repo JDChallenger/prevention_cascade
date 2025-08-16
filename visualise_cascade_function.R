@@ -1,16 +1,19 @@
 visualise_cascade <- function(data, plot_label = ' ', 
                               plot_title = ' ',y_axis = 'both',
-                              color_scheme = -1, second_color = 'grey57',
+                              colour_scheme = -1, second_colour = 'grey57',
                               order_reasons = 'auto',
                               buffer_x = 0, buffer_y = 0,
                               font_size1= 5.1, font_size2 = 3.4){
   
-  #if(color_scheme[1]==-1){
   l <- length(unique(data$level))
+  if(length(colour_scheme) != l & length(colour_scheme) > 1){
+    print('Check the colour scheme provided.')
+  }
+
   csc <- scales::hue_pal()(l)
   #}else{
-  if(length(color_scheme) == l){
-    csc <- color_scheme
+  if(length(colour_scheme) == l){
+    csc <- colour_scheme
   }else{
     print('No user-defined colour scheme detected')
   }
@@ -89,7 +92,7 @@ visualise_cascade <- function(data, plot_label = ' ',
   size2 <- font_size2
   
   p2 <- p1 + geom_rect(data = dx, aes(xmin = sx1, xmax = sx2, ymin = sy1, ymax = sy2),
-                       fill = second_color[1]) + #, color = 'darkred' 
+                       fill = second_colour[1]) + #, color = 'darkred' 
     geom_text(angle = 90, data = dx, aes(x = text_loc, y = text_loc_y, label = text),
               vjust = 0.5, hjust = 0, size = size2, color = 'grey19') + 
     geom_text(color = 'grey87', data = dx, 
@@ -116,7 +119,7 @@ visualise_cascade <- function(data, plot_label = ' ',
   if(y_axis=='PC'){
     #print('boom')
     p2 <- p2 + 
-      scale_x_continuous(limits = c(0.5, buffer_x + l + 0.5))
+      scale_x_continuous(limits = c(0.5, buffer_x + l + 0.5)) +
     scale_y_continuous(limits = c(0,buffer_y + df[df$level==1,]$N[1]),
                        breaks = c(0,0.25*df[df$level==1,]$N[1],
                                   0.5*df[df$level==1,]$N[1],
