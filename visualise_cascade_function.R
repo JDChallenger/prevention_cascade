@@ -62,7 +62,7 @@ visualise_cascade <- function(data, plot_label = ' ',
     for(i in 2:da){
       aux$Nm1[i] <- aux$N[i-1]
     }
-    print(aux)
+    #print(aux)
     p1 <- p1 + geom_rect(data = aux,
       aes(xmin = level - 0.5, xmax = level - 0.5 + descr_prop,
           ymin = N, ymax = Nm1), 
