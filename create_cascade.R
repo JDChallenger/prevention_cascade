@@ -139,3 +139,33 @@ visualise_cascade(data = df,
 #include in (e.g.) Word/Powerpoint
 ggsave('cascade.pdf', height = 6, width = 7.8)
 ggsave('cascade.png', height = 6, width = 7.8)
+
+#if each level of cascade has a description,
+# We can add here. For these labels, we add them to the 
+# dataset
+#One difficulty is splitting labels over multiple lines.
+# The usual way to do this in R is to insert '\n' where you 
+# want the break to appear
+df[df$level==2 & df$in_Q==1,]$reason <- 'Lack of\nmotivation'
+df[df$level==3 & df$in_Q==1,]$reason <- 'Lack of\naccess'
+df[df$level==4 & df$in_Q==1,]$reason <- 'Lack of\ncapability'
+
+#Here are the relevant function arguments:
+# * reason_descr
+# To turn this on, use reason_descr=1 (by default reason_descr=0)
+
+# * descr_prop
+#T his determines how much space is assigned to 
+# this extra box on the plot. This should lie between
+# 0 and 1 (default is 0.4)
+
+visualise_cascade(data = df, reason_descr = 1,
+                  descr_prop = 0.45,
+                  colour_scheme = c('dodgerblue3','slateblue',
+                                    'skyblue2','turquoise'))
+
+# Note: as extra information is now presented on the 
+# plot, it may be harder to fit everything in.
+# you could either reduce the font size 
+# (argment 'font_size2' is used here) or,
+# when saving the plot, make the overall figure larger
