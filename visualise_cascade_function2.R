@@ -38,7 +38,9 @@ visualise_cascade2 <- function(data, pop_label = 1,
   epsilon <- 0.025 #could be a user-defined argument. But needs to be small!!
   
   #base plot
-  p1 <- ggplot() + geom_rect(data = data[data$in_Q==1,], 
+  p1 <- ggplot() + geom_hline(yintercept = mx,
+                color = 'grey73',linewidth = 0.1) +
+    geom_rect(data = data[data$in_Q==1,], 
                         aes(xmin = level - 0.5, 
                             xmax = level + 0.5,
                             ymin = 0, ymax = mx*(1+space_y_PC/100)), 
@@ -52,8 +54,15 @@ visualise_cascade2 <- function(data, pop_label = 1,
     theme(axis.ticks.x = element_blank(), 
             axis.text.x = element_blank(),
             legend.position = 'none') + 
-    xlab(plot_label) + ylab('Study population') + 
-    scale_fill_manual(values = csc) 
+    xlab(plot_label) + ylab('Study population (%)') + 
+    scale_fill_manual(values = csc) + 
+    geom_text(data = data[data$in_Q==1,], 
+        aes(y = mx*(1+(space_y_PC + 5)/100), #0.1*(data[data$level==1,]$N),
+          x = level, 
+          label = paste0(reason, ' (n=',N,')')), 
+            color = 'grey11', size = font_size2) + 
+    scale_y_continuous(breaks = c(0,0.25*mx,0.5*mx,0.75*mx, mx),
+                       labels = c(seq(0,100,25)))
   
   if(plot_title!=' '){
     p1 <- p1 + ggtitle(plot_title)
