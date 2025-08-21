@@ -119,7 +119,7 @@ visualise_cascade <- function(data, pop_label = 1,
       txt_loc_y <- base + label_buffer1 + aux[aux$order==j,]$N 
       
       N_label = paste0('N=',aux[aux$order==j,]$N)#as.character(aux[aux$order==j,]$N)#
-      N_pos_x <- txt_loc <- (x1 + x2)/2
+      N_pos_x <- (x1 + x2)/2
       #N_pos_y <- base + 0.2*aux[aux$order==j,]$N #+ 25 # may need modifying
       N_pos_y <- base + 0.25*min(aux$N)
       
