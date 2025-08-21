@@ -1,4 +1,5 @@
-visualise_cascade <- function(data, plot_label = ' ', 
+visualise_cascade <- function(data, pop_label = 1,
+                              plot_label = ' ', 
                               plot_title = ' ',y_axis = 'both',
                               colour_scheme = -1, second_colour = 'grey57',
                               order_reasons = 'auto',
@@ -44,11 +45,14 @@ visualise_cascade <- function(data, plot_label = ' ',
     theme_classic() + theme(axis.ticks.x = element_blank(), axis.text.x = element_blank(),
                             legend.position = 'none') + 
     xlab(plot_label) + ylab('Study population') + 
-    scale_fill_manual(values = csc) + 
-    geom_text(data = data[data$in_Q==1,], 
-              aes(y = 0.4*min(data[data$in_Q==1,]$N), #0.1*(data[data$level==1,]$N),
-              x = level, label = paste0('N = ',N)), 
+    scale_fill_manual(values = csc) 
+  
+  if(pop_label==1){
+    p1 <- p1 + geom_text(data = data[data$in_Q==1,], 
+                  aes(y = 0.5*min(data[data$in_Q==1,]$N), #0.1*(data[data$level==1,]$N),
+            x = level, label = paste0('N = ',N)), 
               color = 'white', size = font_size1)
+  }
   
   if(plot_title!=' '){
     p1 <- p1 + ggtitle(plot_title)

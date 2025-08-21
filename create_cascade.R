@@ -3,6 +3,7 @@
 # 'Install Packages' option from the Tools menu
 library(ggplot2)
 library(scales)
+library(readxl)
 
 # If you don't have data to read in, you 
 # can use the fake data provided
@@ -22,6 +23,14 @@ source('visualise_cascade_function.R')
 visualise_cascade(data = df)
 
 ####### Now we'll go through a list of the other options:
+
+# * pop_label
+# Determines whether the protected population
+# at each stage of the cascade is printed on the 
+# bar chart as a white label. By default, these
+# labels are included (pop_label=1), 
+# but can be removed i.e.: 
+visualise_cascade(data = df, pop_label = 0)
 
 # * plot_label
 # This allows the user to add a label to the plot, 
