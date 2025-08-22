@@ -37,6 +37,12 @@ visualise_cascade2 <- function(data, pop_label = 1,
   mx <- max(data[data$in_Q==1,]$N)
   epsilon <- 0.025 #could be a user-defined argument. But needs to be small!!
   
+  #vertical justification for y axis?
+  hj <- max(0, 0.5 - 0.375*(space_y_PC/100))
+  if(verbose==T){
+    print(paste0('h_just for y axis title: ',hj))
+  }
+  
   #base plot
   p1 <- ggplot() + geom_hline(yintercept = mx,
                 color = 'grey73',linewidth = 0.1) +
@@ -53,8 +59,9 @@ visualise_cascade2 <- function(data, pop_label = 1,
     theme_classic() + 
     theme(axis.ticks.x = element_blank(), 
             axis.text.x = element_blank(),
-            legend.position = 'none') + 
-    xlab(plot_label) + ylab('Study population (%)      ') + 
+            legend.position = 'none',
+          axis.title.y = element_text(hjust = hj)) + 
+    xlab(plot_label) + ylab('Study population (%)') + 
     scale_fill_manual(values = csc) + 
     geom_text(data = data[data$in_Q==1,], 
         aes(y = mx*(1+(space_y_PC + 5)/100), #0.1*(data[data$level==1,]$N),
