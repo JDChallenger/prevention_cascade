@@ -37,8 +37,8 @@ visualise_cascade2 <- function(data, pop_label = 1,
   mx <- max(data[data$in_Q==1,]$N)
   epsilon <- 0.025 #could be a user-defined argument. But needs to be small!!
   
-  #vertical justification for y axis?
-  hj <- max(0, 0.5*(1 - 0.5*(space_y_PC/100)))
+  # justification for y axis?
+  hj <- 0.5/(1 + (space_y_PC/100))#max(0, 0.5*(1 - 0.5*(space_y_PC/100)))
   if(verbose==T){
     print(paste0('h_just for y axis title: ',hj))
   }
