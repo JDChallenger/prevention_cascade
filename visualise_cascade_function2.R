@@ -1,9 +1,9 @@
 visualise_cascade2 <- function(data, pop_label = 1,
                               plot_label = ' ', 
-                              plot_title = ' ',y_axis = 'both',
+                              plot_title = ' ', #y_axis = 'both',
                               colour_scheme = -1, second_colour = 'grey57',
                               order_reasons = 'auto',
-                              space_y_PC =50,
+                              space_y_PC =66.67,
                               #buffer_x = 0, buffer_y = 0,
                               #reason_descr = 0,
                               #descr_prop = 0.4,
@@ -54,7 +54,7 @@ visualise_cascade2 <- function(data, pop_label = 1,
     theme(axis.ticks.x = element_blank(), 
             axis.text.x = element_blank(),
             legend.position = 'none') + 
-    xlab(plot_label) + ylab('Study population (%)') + 
+    xlab(plot_label) + ylab('Study population (%)      ') + 
     scale_fill_manual(values = csc) + 
     geom_text(data = data[data$in_Q==1,], 
         aes(y = mx*(1+(space_y_PC + 5)/100), #0.1*(data[data$level==1,]$N),
@@ -105,12 +105,12 @@ visualise_cascade2 <- function(data, pop_label = 1,
       
       txt <- aux[aux$order==j,]$reason
       txt_loc_x <- (x1 + x2)/2
-      txt_loc_y <- mx*( 1 + 0.05*space_y_PC/100 )
+      txt_loc_y <- mx*( 1 + 0.5*space_y_PC/100 )
       
       N_label = aux[aux$order==j,]$N#paste0('N=',aux[aux$order==j,]$N)#as.character(aux[aux$order==j,]$N)#
       N_pos_x <- (x1 + x2)/2
       #N_pos_y <- base + 0.2*aux[aux$order==j,]$N #+ 25 # may need modifying
-      N_pos_y <- base + (aux[aux$order==j,]$N) + mx/25 #i.e. raise by a proportion of max N
+      N_pos_y <- base + (aux[aux$order==j,]$N) + mx/50 #i.e. raise by a proportion of max N
       
       dx <- rbind(dx, data.frame('sx1' = x1, 'sx2' = x2, 'sy1' = y1, "sy2" = y2,
                                  'text' = txt, 'text_loc_x' = txt_loc_x, 'text_loc_y' = txt_loc_y,
@@ -126,13 +126,12 @@ visualise_cascade2 <- function(data, pop_label = 1,
   p2 <- p1 + geom_rect(data = dx, aes(xmin = sx1, xmax = sx2, ymin = sy1, ymax = sy2),
                        fill = second_colour[1]) + #, color = 'darkred' 
     geom_text(angle = 90, data = dx, aes(x = text_loc_x, y = text_loc_y, label = text),
-              vjust = 0, hjust = 0, size = size2, color = 'grey19') + 
+              vjust = 0.5, hjust = 0.5, size = size2, color = 'grey19') + 
     geom_text(color = 'grey37', data = dx, 
               aes(x = N_pos_x, y = N_pos_y, label = N_lab), 
               vjust = 0, size = size2)
   
    return(p2) 
 }
-# add percentages to y axis. Are multiple y-axes here
-# too difficult? 
-# add rotated labels up top. And reason groups and "N="s
+# Are multiple y-axes here too fiddly? 
+
