@@ -102,12 +102,12 @@ visualise_cascade2(data = df,
 #not included yet: buffer_x (do we need this?)
 #not included yet: label_buffer (do we need this?)
 
-# * font_size2
-# At the moment, only one font size is used (the smaller one),
-# unlike in the other layout. By default, font_size2=3.4
+# * font_size1, font_size2
+# The former controls the size of the headings at the top.
+# The latter controls the size of all other labels
+# By default, font_size1 = 4 and font_size2=3.4
 
-visualise_cascade2(data = df, 
-                   font_size2 = 2.5)
+visualise_cascade2(data = df, font_size1 = 4.3, font_size2 = 2.5)
 
 # * verbose
 # Setting verbose = T prints extra info to the R console,

@@ -68,7 +68,7 @@ visualise_cascade2 <- function(data, pop_label = 1,
         aes(y = mx*(1+(space_y_PC + 5)/100), #0.1*(data[data$level==1,]$N),
           x = level, 
           label = paste0(reason, ' (n=',N,')')), 
-            color = 'grey11', size = font_size2) + 
+            color = 'grey11', size = font_size1) + 
     scale_y_continuous(breaks = c(0,0.25*mx,0.5*mx,0.75*mx, mx),
                        labels = c(seq(0,100,25)))
   
