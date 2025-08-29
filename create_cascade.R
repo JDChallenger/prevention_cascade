@@ -178,3 +178,33 @@ visualise_cascade(data = df, reason_descr = 1,
 # you could either reduce the font size 
 # (argment 'font_size2' is used here) or,
 # when saving the plot, make the overall figure larger
+
+# * descr_protect
+# In some cases, you may wish to add labels describing, at each 
+# level of the cascade, the protected population. In which case,
+# set descr_protect = 1, and provide the labels to use. For the labels, 
+# we must introduce a new variable into the dataset called 'pop_descr'
+
+df$protect_label <- NA # create new column, with empty values
+
+# provide the labels ('font_size2' is used here)
+df[df$level==1 & df$in_Q==1,]$protect_label <- 'Label 1'
+df[df$level==2 & df$in_Q==1,]$protect_label <- 'Label 2'
+df[df$level==3 & df$in_Q==1,]$protect_label <- 'Label 3'
+df[df$level==4 & df$in_Q==1,]$protect_label <- 'Label 4'
+
+# * label position
+# When placing these labels, it is difficult to automate this, 
+# as we'll need to avoid other labels. So, we need to provide a 
+# vector, describing the height of each label (in order, level 1-4).
+# For the scale here, we use the height relative to the overall
+# population contained in the dataset. 
+# E.g. label_position <- c(0.4, 0.4, 0.3, 0.1)
+
+
+
+visualise_cascade(data = df, descr_protect = 1,
+                  label_position = c(0.4, 0.4, 0.3, 0.22))
+
+
+

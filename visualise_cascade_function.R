@@ -6,6 +6,8 @@ visualise_cascade <- function(data, pop_label = 1,
                               buffer_x = 0, buffer_y = 0,
                               reason_descr = 0,
                               descr_prop = 0.4,
+                              descr_protect = 0,
+                              label_position = NA,
                               label_buffer = -1,
                               font_size1= 5.1, font_size2 = 3.4,
                               verbose = F){
@@ -13,6 +15,10 @@ visualise_cascade <- function(data, pop_label = 1,
   l <- length(unique(data$level))
   if(length(colour_scheme) != l & length(colour_scheme) > 1){
     print('Check the colour scheme provided.')
+  }
+  
+  if(descr_protect==1 & length(label_position) != l){
+    print('Check vector for label_positions')
   }
 
   csc <- scales::hue_pal()(l)
@@ -52,6 +58,14 @@ visualise_cascade <- function(data, pop_label = 1,
                   aes(y = 0.5*min(data[data$in_Q==1,]$N), #0.1*(data[data$level==1,]$N),
             x = level, label = paste0('N = ',N)), 
               color = 'white', size = font_size1)
+  }
+  
+  if(descr_protect==1){
+    p1 <- p1 + geom_text(data = data.frame('r' = data[data$in_Q==1,]$protect_label, 
+                                           'xx' = data[data$in_Q==1,]$level,
+                                           'yy' = label_position*max(data$N)),
+                aes(x = xx, y = yy, label = r),
+                color = 'white', size = font_size2)
   }
   
   if(plot_title!=' '){
