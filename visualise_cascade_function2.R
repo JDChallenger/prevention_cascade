@@ -44,8 +44,9 @@ visualise_cascade2 <- function(data, pop_label = 1,
   }
   
   #base plot
-  p1 <- ggplot() + geom_hline(yintercept = mx,
-                color = 'grey73',linewidth = 0.1) +
+  p1 <- ggplot() + #geom_hline(yintercept = mx,
+                #color = 'grey73',linewidth = 0.1) +
+    annotate('segment', x = 0.5, xend = l + 0.5, y = mx, color = 'grey73') +
     geom_rect(data = data[data$in_Q==1,], 
                         aes(xmin = level - 0.5, 
                             xmax = level + 0.5,
