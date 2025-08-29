@@ -7,7 +7,7 @@ library(readxl)
 
 # If you don't have data to read in, you 
 # can use the fake data provided
-#source('synthetic_data.R')
+source('synthetic_data.R')
 df
 
 # TO DO: Add description of data format to be used here
@@ -21,6 +21,19 @@ source('visualise_cascade_function2.R')
 # The only compulsory one is the specification of 
 # the data frame to use:
 visualise_cascade2(data = df)
+
+# Notice that the headings at the top looks a bit strange.
+# Let's provide labels for these. At the moment, the
+# reasons column has empty spaces in rows where in_Q = 1. 
+# Let's use those spaces (I may update this)
+df[df$level==1 & df$in_Q==1,]$reason <- 'Priority population'
+df[df$level==2 & df$in_Q==1,]$reason <- 'Motivated to use'
+df[df$level==3 & df$in_Q==1,]$reason <- 'Can access'
+df[df$level==4 & df$in_Q==1,]$reason <- 'Effectively using'
+
+#And run the function again...
+visualise_cascade2(data = df)
+
 
 # * plot_label
 # This allows the user to add a label to the plot, 
