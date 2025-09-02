@@ -8,7 +8,7 @@ visualise_cascade2 <- function(data, pop_label = 1,
                               #reason_descr = 0,
                               #descr_prop = 0.4,
                               #label_buffer = -1,
-                              font_size1= 5.1, font_size2 = 3.4,
+                              font_size1= 4, font_size2 = 3.4,
                               verbose = F){
   
   l <- length(unique(data$level))
