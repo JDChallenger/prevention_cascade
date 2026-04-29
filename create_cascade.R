@@ -85,7 +85,7 @@ visualise_cascade(data = df,
 # the order in which the reasons are plotted. 
 # The options are: (i) The order specified by the user in 
 # the dataframe (the default); 
-# (ii) Alphabetical (order_reasons='AZ); 
+# (ii) Alphabetical (order_reasons='AZ'); 
 # (iii) Ascending (l to r) numerical values (order_reasons = 'ascend'); 
 # (iv) Descending (l to r) numerical values (order_reasons = 'descend'); 
 
