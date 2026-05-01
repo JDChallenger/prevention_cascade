@@ -42,3 +42,14 @@ dx[dx$level==1,]$cs2[1] <- dx[dx$level==1,]$N[1]
 ggplot(dx) + theme_classic() +
   geom_rect(aes(xmin = level - 0.5, xmax = level + 0.5,
                 ymin = cs1, ymax = cs2, fill = bray), alpha = .32) 
+
+ggplot(dx[dx$level > 1,]) + theme_classic() +
+  geom_rect(data = dx[dx$level > 1,], aes(xmin = level - 0.5, xmax = level + 0.5,
+                ymin = cs1, ymax = cs2, fill = bray), alpha = .55) +
+  geom_rect(data = dx[dx$level == 1,], aes(xmin = level - 0.5, xmax = level + 0.5,
+                                   ymin = cs1, ymax = cs2), alpha = .55, fill = 'grey35') 
+
+
+
+
+
