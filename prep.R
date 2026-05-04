@@ -31,10 +31,6 @@ ggplot(dx) +
            position="stack", stat="identity") + 
   theme_classic()
 
-ggplot(dx) + theme_classic() +
-  geom_rect(aes(xmin = level - 0.5, xmax = level + 0.5,
-                ymin = 0, ymax = N, fill = name), alpha = .6) #+
-
 dx$cs1 <- NA
 dx$cs2 <- NA
 dx$pc_cs1 <- NA
