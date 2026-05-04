@@ -1,55 +1,82 @@
 library(ggplot2)
+library(scales) #for label_wrap()
 
-bray <- paste0('bray',seq(1,9,1))
-dx1 <- data.frame('bray' = NA, level = 1)
-dx2 <- as.data.frame(expand.grid('bray' = bray, 'level' = c(2,3,4)))
+#bray <- paste0('bray',seq(1,9,1))
+brayX <- c('Condoms', 'VMMC', 'PrEP',
+           'Condoms + VMMC', 'Condoms + PrEP',
+           'VMMC + PrEP', 'Condoms + VMMC + PrEP' )
+dx1 <- data.frame(name = 'Total Population', level = 1)
+dx2 <- as.data.frame(expand.grid('name' = brayX, 'level' = c(2,3,4)))
 dx <- rbind(dx1, dx2)
 
+dx$level_name <- NA #not in use at the moment 
+#(https://www.andrewheiss.com/blog/2022/06/23/long-labels-ggplot/)
 dx$N <- NA
 dx[dx$level==1,]$N <- 733
+dx[dx$level==1,]$level_name <- 'Priority population'
 
-dx[dx$level==2,]$N <- c(37,144,29,26,97,44,53,82,29)
+dx[dx$level==2,]$N <- c(37,144,29,26,117,44,53)
+dx[dx$level==2,]$level_name <- 'Motivation'
 
-dx[dx$level==3,]$N <- c(30,84,20,15,71,32,44,70,18)
+dx[dx$level==3,]$N <- c(30,84,20,15,90,32,44)
+dx[dx$level==3,]$level_name <- 'Access'
 
-dx[dx$level==4,]$N <- c(10,44,16,11,57,24,40,30,11)
+dx[dx$level==4,]$N <- c(10,44,16,11,67,24,40)
+dx[dx$level==4,]$level_name <- 'Effective use'
 
 table(dx$N, useNA = 'a')
 
 ggplot(dx) + 
-  geom_bar(aes(x = level, y = N, fill = bray),
+  geom_bar(aes(x = level, y = N, fill = name),
            position="stack", stat="identity") + 
   theme_classic()
 
 ggplot(dx) + theme_classic() +
   geom_rect(aes(xmin = level - 0.5, xmax = level + 0.5,
-                ymin = 0, ymax = N, fill = bray), alpha = .2) #+
+                ymin = 0, ymax = N, fill = name), alpha = .6) #+
 
 dx$cs1 <- NA
 dx$cs2 <- NA
+dx$pc_cs1 <- NA
+dx$pc_cs2 <- NA
 for(i in 2:4){
   #aux <- dx[dx$level==i,]
+  totl <- sum(dx[dx$level==i,]$N)
   
   dx[dx$level==i,]$cs2 <- cumsum(dx[dx$level==i,]$N)
-  dx[dx$level==i,]$cs1 <- c(0,dx[dx$level==i,]$cs2[1:8])
+  dx[dx$level==i,]$cs1 <- c(0,dx[dx$level==i,]$cs2[1:6])
   #If we have the same number of factors for each level
   
+  dx[dx$level==i,]$pc_cs1 <- dx[dx$level==i,]$cs1 /totl
+  dx[dx$level==i,]$pc_cs2 <- dx[dx$level==i,]$cs2 /totl
 }
 dx
 dx[dx$level==1,]$cs1[1] <- 0
 dx[dx$level==1,]$cs2[1] <- dx[dx$level==1,]$N[1]
+#
+dx[dx$level==1,]$pc_cs1[1] <- 0
+dx[dx$level==1,]$pc_cs2[1] <- 1#?
+
+ggplot(dx) + theme_classic() + labs(fill = '') +
+  geom_rect(aes(xmin = level - 0.49, xmax = level + 0.49,
+                ymin = cs1, ymax = cs2, fill = name),
+            alpha = .72) + 
+  scale_x_continuous(breaks = seq(1,4),
+                     labels = c('Priority\npopulation',
+                                'Motivation',
+                                'Access',
+                                'Effective\nuse')) 
+
 
 ggplot(dx) + theme_classic() +
-  geom_rect(aes(xmin = level - 0.5, xmax = level + 0.5,
-                ymin = cs1, ymax = cs2, fill = bray), alpha = .32) 
-
-ggplot(dx[dx$level > 1,]) + theme_classic() +
-  geom_rect(data = dx[dx$level > 1,], aes(xmin = level - 0.5, xmax = level + 0.5,
-                ymin = cs1, ymax = cs2, fill = bray), alpha = .55) +
-  geom_rect(data = dx[dx$level == 1,], aes(xmin = level - 0.5, xmax = level + 0.5,
-                                   ymin = cs1, ymax = cs2), alpha = .55, fill = 'grey35') 
-
-
-
-
+  geom_rect(aes(xmin = level - 0.49, xmax = level + 0.49,
+                ymin = 100*pc_cs1, ymax = 100*pc_cs2,
+                fill = name), alpha = .65) + 
+  ylab('Percentage of population (%)') + 
+  labs(fill = '') +
+  scale_x_continuous(breaks = seq(1,4),
+                     labels = c('Priority population',
+                                'Motivation',
+                                'Access',
+                                'Effective use'))  
 
