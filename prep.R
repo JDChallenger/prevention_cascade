@@ -31,6 +31,18 @@ ggplot(dx) +
            position="stack", stat="identity") + 
   theme_classic()
 
+#In the legend, I would prefer to have Total Population as the top colour
+# We can achieve this by making name a factor variable, then changing the 
+# first 'level' in the factor variable
+
+dx$name <- as.factor(dx$name)
+dx$name <- relevel(dx$name, "Total Population") 
+
+ggplot(dx) + 
+  geom_bar(aes(x = level, y = N, fill = name),
+           position="stack", stat="identity") + 
+  theme_classic()
+
 # dx$cs1 <- NA
 # dx$cs2 <- NA
 # dx$pc_cs1 <- NA
@@ -106,5 +118,5 @@ table(dy$N, useNA = 'a')
 
 fn_name(data = dy, PC = T, opacity = 0.5, spacing = 0.06)
 
-fn_name2(data1 = dx, data2 = dy, PC = T, spacing = 0.03, 
-         dataset_names = c('2003','2011'), opacity = 0.99)
+fn_name2(data1 = dx, data2 = dy, PC = T, spacing = 0.02, 
+         dataset_names = c('2003','2011'), opacity = 0.99) #+ theme(legend.position = 'top')
