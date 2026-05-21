@@ -57,7 +57,7 @@ fn_name2 <- function(data1, data2, opacity = 0.7, spacing = 0.01,
   data2[data2$level==1,]$pc_cs1[1] <- 0
   data2[data2$level==1,]$pc_cs2[1] <- 1#?
   
-  if(PC == T){
+  #if(PC == T){
     pl <- ggplot() + theme_classic() +
       geom_rect(data = data1, aes(xmin = level - (0.5 - abs(spacing)), xmax = level - abs(spacing),
                     ymin = 100*pc_cs1, ymax = 100*pc_cs2,
@@ -76,6 +76,6 @@ fn_name2 <- function(data1, data2, opacity = 0.7, spacing = 0.01,
                    y = 50, angle = 90, label = dataset_names[1], color = 'white', size = text_sz) +
       annotate('text', x = 0.5*(1 + abs(spacing) + 1 + (0.5 - abs(spacing))),
           y = 50, angle = 90, label = dataset_names[2], color = 'white', size = text_sz) 
-  }
+  #}
   return(pl)
 }

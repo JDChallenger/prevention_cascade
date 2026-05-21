@@ -96,6 +96,7 @@ fn_name(data = dx, PC = F, opacity = 0.3)
 fn_name(data = dx, PC = F, opacity = 0.5, spacing = 0.06)
 
 # Second dataset
+source('fn_name2.R')
 
 dy <- rbind(dx1, dx2)
 
@@ -118,5 +119,5 @@ table(dy$N, useNA = 'a')
 
 fn_name(data = dy, PC = T, opacity = 0.5, spacing = 0.06)
 
-fn_name2(data1 = dx, data2 = dy, PC = T, spacing = 0.02, 
+fn_name2(data1 = dx, data2 = dy, spacing = 0.02, 
          dataset_names = c('2003','2011'), opacity = 0.99) #+ theme(legend.position = 'top')
