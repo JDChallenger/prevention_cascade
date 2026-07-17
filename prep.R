@@ -121,3 +121,10 @@ fn_name(data = dy, PC = T, opacity = 0.5, spacing = 0.06)
 
 fn_name2(data1 = dx, data2 = dy, spacing = 0.02, 
          dataset_names = c('2003','2011'), opacity = 0.99) #+ theme(legend.position = 'top')
+
+# Second dataset: in this version, we don't rescale populations at each level
+# but by the denominator of the top level (for each survey)
+source('viz_two_datasets.R')
+
+viz_two_datasets(data1 = dx, data2 = dy, spacing = 0.02, 
+         dataset_names = c('2003','2011'), opacity = 0.99)
